@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <svg id="openicon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg id="closeicon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 100 100" style="display: none;">
+          <image id="hide" x="5" y="42" width="90" height="44" xlink:href="data:img/png;base64,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"/>
+        </svg>
+        <h1>BlinkRead</h1>
+      </div>
+      <button id="themeToggle" aria-label="Toggle theme">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="settings">
+      <div class="wpm-control">
+        <label for="wpm">Words per minute:</label>
+        <div class="wpm-slider-input">
+          <input type="range" id="wpm" min="1" max="1000" value="300" />
+          <input type="number" id="wpmInput" min="1" max="1000" value="300" />
+        </div>
+        <span id="wpmDisplay">300 WPM</span>
+      </div>
+      
+      <button id="advancedSettings" class="secondary-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        Advanced Settings
+      </button>
+    </div>
+
+    <div id="advancedSettingsPanel" class="settings-panel" style="display: none;">
+      <div class="setting-group">
+        <h3>Reading Settings</h3>
+        <div class="setting-item">
+          <label for="focusMode">Focus mode:</label>
+          <input type="checkbox" id="focusMode" />
+        </div>
+        <div class="setting-item">
+          <label for="highlightMode">Highlight mode:</label>
+          <select id="highlightMode" class="select-input">
+            <option value="random">Random letter</option>
+            <option value="first">First letter</option>
+            <option value="middle">Middle letter</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label for="wordsPerView">Words per view:</label>
+          <input type="number" id="wordsPerView" min="1" max="5" value="1" />
+        </div>
+        <div class="setting-item">
+          <label for="contextWords">Context words:</label>
+          <input type="number" id="contextWords" min="0" max="10" value="3" />
+        </div>
+        <div class="setting-item">
+          <label for="autoReadDelay">Auto-read delay (seconds):</label>
+          <input type="number" id="autoReadDelay" min="0" max="10" value="0" step="0.5" />
+        </div>
+        <div class="setting-item">
+          <label for="pauseOnHover">Pause on hover:</label>
+          <input type="checkbox" id="pauseOnHover" />
+        </div>
+        <div class="setting-item">
+          <label for="fontSize">Font size:</label>
+          <input type="range" id="fontSize" min="32" max="96" value="64" />
+        </div>
+        <div class="setting-item">
+          <label for="letterSpacing">Letter spacing:</label>
+          <input type="range" id="letterSpacing" min="-2" max="10" value="0" />
+          <span id="letterSpacingDisplay">0px</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <h3>Word Processing</h3>
+        <div class="setting-item">
+          <label for="longWordThreshold">Long word threshold (characters):</label>
+          <input type="number" id="longWordThreshold" min="1" max="20" value="8" />
+        </div>
+        <div class="setting-item">
+          <label for="longWordDelay">Long word delay (%):</label>
+          <input type="number" id="longWordDelay" min="0" max="200" value="30" />
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <h3>Colors</h3>
+        <div class="setting-item">
+          <label for="highlightColor">Highlight color:</label>
+          <input type="color" id="highlightColor" value="#8b5cf6" />
+        </div>
+        <div class="setting-item">
+          <label for="backgroundColor">Background color:</label>
+          <input type="color" id="backgroundColor" value="#ffffff" />
+        </div>
+        <div class="setting-item">
+          <label for="textColor">Text color:</label>
+          <input type="color" id="textColor" value="#1f2937" />
+        </div>
+      </div>
+    </div>
+
+    <textarea id="textInput" class="text-input" placeholder="Paste your text here..."></textarea>
+    
+    <button id="startReading" class="primary-button">Start Reading</button>
+  </div>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
