@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     wordsAtOnce: 1,
     autoReadDelay: 0,
     highlightStyle: 'random',
-    highlightColor: '#f97316',
+    highlightColor: '',
     backgroundColor: '',
-    textColor: ''
+    textColor: '#ffffff',
   };
 
   const currentSettings = { ...defaultSettings, ...settings.settings };

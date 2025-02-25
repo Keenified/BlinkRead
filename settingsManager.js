@@ -5,8 +5,8 @@ const defaultSettings = {
   wordsAtOnce: 1,
   autoReadDelay: 0,
   highlightStyle: 'random',
-  highlightColor: '#f97316',
-  backgroundColor: '',
+  highlightColor: '',
+  backgroundColor: 'data-theme= match',
   textColor: ''
 };
 

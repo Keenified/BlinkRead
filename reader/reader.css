@@ -19,11 +19,10 @@
   transform: scale(0.95);
 }
 :root {
-  --bg-primary: rgba(20, 20, 35, 0.95);
+  --bg-primary: rgba(20, 20, 35, 0.949);
   --bg-secondary: rgba(30, 30, 45, 0.8);
   --text-primary: #f9fafb;
   --text-secondary: #a1a1aa;
-  --accent: #8b5cf6;
   --border: rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.05);
@@ -32,15 +31,14 @@
   --text-custom: var(--text-primary);
   --letter-spacing: 0px;
   --font-size: 64px;
-  --dark-text-color: #e5e7eb; /* New dark mode text color */
+  
 }
 
 [data-theme="light"] {
-  --bg-primary: rgba(255, 255, 255, 0.95);
+  --bg-primary: rgba(232, 232, 232, 0.95);
   --bg-secondary: rgba(245, 245, 250, 0.8);
   --text-primary: #1f2937;
   --text-secondary: #4b5563;
-  --accent: #6d28d9;
   --border: rgba(0, 0, 0, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -52,7 +50,6 @@
   --bg-secondary: rgba(30, 30, 45, 0.8);
   --text-primary: #f9fafb;
   --text-secondary: #a1a1aa;
-  --accent: #8b5cf6;
   --border: rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.05);
@@ -60,17 +57,6 @@
   --text-custom: var(--dark-text-color); /* Apply dark mode text color */
 }
 
-[data-theme="dark-secondary"] {
-  --bg-primary: rgba(10, 10, 25, 0.95);
-  --bg-secondary: rgba(20, 20, 35, 0.8);
-  --text-primary: #e5e7eb;
-  --text-secondary: #9ca3af;
-  --accent: #7c3aed;
-  --border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
 
 body {
   margin: 0;
@@ -101,6 +87,7 @@ body {
   align-items: center;
   z-index: 10;
   box-shadow: var(--glass-shadow);
+  justify-content: space-between; /* Add this line to move the settings icon to the right */
 }
 
 .reader {
@@ -112,17 +99,7 @@ body {
   margin-top: 80px;
 }
 
-.reader-content {
-  /* Default text color for light mode */
-  color: #000000;
-}
 
-@media (prefers-color-scheme: dark) {
-  .reader-content {
-    /* Text color for dark mode */
-    color: #FFFFFF;
-  }
-}
 
 .word-container {
   display: flex;
@@ -206,7 +183,7 @@ button:active {
 }
 
 .settings-toggle {
-  margin-left: auto;
+  margin-left: 10px; /* Adjust margin to position next to close button */
 }
 
 .settings-panel {

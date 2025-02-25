@@ -69,8 +69,18 @@ function updateUI() {
 
   // Apply colors
   document.documentElement.style.setProperty('--accent', settings.highlightColor);
-  document.documentElement.style.setProperty('--bg-custom', settings.backgroundColor);
+  document.documentElement.style.setProperty('--bg-custom', settings.backgroundColor || (theme === 'dark' ? '#202023' : '#ffffff'));
   document.documentElement.style.setProperty('--text-custom', settings.textColor);
+
+  // Apply background color to reader
+  document.querySelector('.reader').style.backgroundColor = settings.backgroundColor || (theme === 'dark' ? '#202023' : '#ffffff');
+  // Apply text color to speed text
+  document.querySelector('#word').style.color = settings.textColor;
+
+  // Update accent color for both themes
+  document.querySelector(':root').style.setProperty('--accent', settings.highlightColor);
+  document.querySelector('[data-theme="light"]').style.setProperty('--accent', settings.highlightColor);
+  document.querySelector('[data-theme="dark"]').style.setProperty('--accent', settings.highlightColor);
 }
 
 // Theme toggle
@@ -106,6 +116,15 @@ document.getElementById('wpmInput').addEventListener('change', (e) => {
 document.getElementById('advancedSettings').addEventListener('click', () => {
   const panel = document.getElementById('advancedSettingsPanel');
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+});
+
+// Close settings panel when clicking outside of it
+document.addEventListener('click', (event) => {
+  const panel = document.getElementById('advancedSettingsPanel');
+  const toggleButton = document.getElementById('advancedSettings');
+  if (panel.style.display === 'block' && !panel.contains(event.target) && !toggleButton.contains(event.target)) {
+    panel.style.display = 'none';
+  }
 });
 
 // Settings event listeners

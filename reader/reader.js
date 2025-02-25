@@ -1,9 +1,9 @@
 let settings = {
   wpm: 300,
   theme: 'auto',
-  highlightColor: '#8b5cf6',
-  backgroundColor: '#ffffff',
-  textColor: '#1f2937',
+  highlightColor: '#9300ff',
+  backgroundColor: '',
+  textColor: '#ffffff',
   longWordThreshold: 8,
   longWordDelay: 30,
   wordsPerView: 1,
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (text) {
     words = decodeURIComponent(text).split(/\s+/).filter(word => word.length > 0);
     applySettings();
+    
     updateUI();
     displayWord();
 
@@ -54,6 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Listen for system color scheme changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     applySettings();
+  });
+
+  // Close settings panel when clicking outside of it
+  document.addEventListener('click', (event) => {
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsToggle = document.getElementById('settingsToggle');
+    if (settingsPanel.classList.contains('visible') && !settingsPanel.contains(event.target) && !settingsToggle.contains(event.target)) {
+      settingsPanel.classList.remove('visible');
+    }
   });
 });
 
@@ -89,7 +99,7 @@ function applySettings() {
   
   // Apply colors and styles
   document.documentElement.style.setProperty('--accent', settings.highlightColor);
-  document.documentElement.style.setProperty('--bg-custom', settings.backgroundColor);
+  document.documentElement.style.setProperty('--bg-custom', settings.backgroundColor || (theme === 'dark' ? '#202023' : '#ffffff'));
   document.documentElement.style.setProperty('--text-custom', settings.textColor);
   document.documentElement.style.setProperty('--letter-spacing', settings.letterSpacing + 'px');
   document.documentElement.style.setProperty('--font-size', settings.fontSize + 'px');
@@ -98,6 +108,19 @@ function applySettings() {
   if (theme === 'dark') {
     document.documentElement.style.setProperty('--text-custom', getComputedStyle(document.documentElement).getPropertyValue('--dark-text-color'));
   }
+
+  // Apply background color to reader
+  document.querySelector('.reader').style.backgroundColor = settings.backgroundColor || (theme === 'dark' ? '#202023' : '#ffffff');
+  // Apply text color to speed text
+  document.querySelector('#word').style.color = settings.textColor;
+
+  // Update accent color for both themes
+  document.querySelector(':root').style.setProperty('--accent', settings.highlightColor);
+  document.querySelector('[data-theme="light"]').style.setProperty('--accent', settings.highlightColor);
+  document.querySelector('[data-theme="dark"]').style.setProperty('--accent', settings.highlightColor);
+
+  // Display the current word
+  displayWord();
 }
 
 function updateUI() {
@@ -118,8 +141,10 @@ function getHighlightIndex(word) {
   switch (settings.highlightMode) {
     case 'first':
       return 0;
+    case 'middle':
+      return Math.floor(word.length / 2);
     case 'last':
-      return word.length - 1;
+      return word.length - 1;  
     case 'random':
     default:
       return Math.floor(Math.random() * word.length);
@@ -298,6 +323,7 @@ document.getElementById('increaseWPM').addEventListener('click', () => {
 document.getElementById('settingsToggle').addEventListener('click', () => {
   const settingsPanel = document.getElementById('settingsPanel');
   settingsPanel.classList.toggle('visible');
+  displayWord(); // Ensure the word is displayed when the settings panel is toggled
 });
 
 // Settings event listeners
