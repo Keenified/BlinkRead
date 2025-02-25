@@ -176,7 +176,7 @@ function displayWord() {
     contextBefore.textContent = '';
     contextAfter.textContent = '';
   }
-
+ 
   // Display current words
   wordElement.innerHTML = '';
   for (let i = 0; i < settings.wordsPerView && currentIndex + i < words.length; i++) {
