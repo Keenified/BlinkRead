@@ -26,6 +26,8 @@ function saveSetting(key, value) {
   browser.storage.local.get('settings').then(storedSettings => {
     const settings = { ...storedSettings.settings, [key]: value };
     browser.storage.local.set({ settings });
+    // Notify other parts of the extension about the settings change
+    browser.runtime.sendMessage({ type: 'settingsUpdated', settings });
   });
 }
 

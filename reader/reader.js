@@ -23,7 +23,7 @@ let isPlaying = false;
 let isPaused = false;
 
 // Load text from URL parameters (for context menu functionality)
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const text = urlParams.get("text");
 
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (text) {
     words = decodeURIComponent(text).split(/\s+/).filter(word => word.length > 0);
+    settings = await getSettings();
     applySettings();
     
     updateUI();
@@ -89,6 +90,11 @@ browser.runtime.onMessage.addListener((message) => {
   }
 });
 
+async function getSettings() {
+  const storedSettings = await browser.storage.local.get('settings');
+  return { ...settings, ...storedSettings.settings };
+}
+
 function applySettings() {
   // Handle theme
   const theme = settings.theme === 'auto' 
@@ -103,10 +109,11 @@ function applySettings() {
   document.documentElement.style.setProperty('--text-custom', settings.textColor);
   document.documentElement.style.setProperty('--letter-spacing', settings.letterSpacing + 'px');
   document.documentElement.style.setProperty('--font-size', settings.fontSize + 'px');
-
+  
   // Apply dark mode text color if needed
   if (theme === 'dark') {
     document.documentElement.style.setProperty('--text-custom', getComputedStyle(document.documentElement).getPropertyValue('--dark-text-color'));
+    console.log ("theme is dark")
   }
 
   // Apply background color to reader
@@ -116,9 +123,7 @@ function applySettings() {
 
   // Update accent color for both themes
   document.querySelector(':root').style.setProperty('--accent', settings.highlightColor);
-  document.querySelector('[data-theme="light"]').style.setProperty('--accent', settings.highlightColor);
-  document.querySelector('[data-theme="dark"]').style.setProperty('--accent', settings.highlightColor);
-
+ 
   // Display the current word
   displayWord();
 }
@@ -176,7 +181,7 @@ function displayWord() {
     contextBefore.textContent = '';
     contextAfter.textContent = '';
   }
- 
+
   // Display current words
   wordElement.innerHTML = '';
   for (let i = 0; i < settings.wordsPerView && currentIndex + i < words.length; i++) {
